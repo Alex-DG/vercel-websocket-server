@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Express.js on Vercel</title>
+
+    <script script type="text/javascript">
+      const sock = new WebSocket('ws://127.0.0.1:8000')
+
+      sock.addEventListener('open', function (e) {
+        // Connection
+        console.log('[ Socket connection successful 🎉]')
+        console.log('------------------------------------')
+      })
+
+      sock.addEventListener('message', function (e) {
+        // receive data from the server
+        console.log('[ Server listener > data received ✅]')
+        console.log(e.data)
+        console.log('------------------------------------')
+      })
+
+      document.addEventListener('DOMContentLoaded', function (e) {
+        document
+          .getElementById('button')
+          .addEventListener('click', function (e) {
+            console.log('[ Client send data 📩]')
+            const data = 'Bonjour 🥖'
+            sock.send(`${data}`) // Send a string to the server via WebSocket
+            console.log('------------------------------------')
+          })
+      })
+    </script>
+  </head>
+
+  <body>
+    <h1>Express App Responded</h1>
+    <button id="button">Send 📩</button>
+  </body>
+</html>
